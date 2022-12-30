@@ -88,6 +88,8 @@ const reglas = [
 
 let ancho //ancho de celda
 let alto //alto de celda
+
+
 function preload() {
   for (let i = 0; i < NA; i++) {
     azulejos[i] = loadImage(`tiles/tile${i}.png`);
@@ -110,7 +112,7 @@ function setup() {
     celdas[i] = {
       colapsada: false,
       opciones: opcionesI,
-    }
+    };
   }
   // celdas[8].colapsada = true;
   // celdas[3].colapsada = true;
@@ -119,9 +121,9 @@ function setup() {
 }
 
 function draw() {
-
+  background(111);
   const celdasDisponibles = celdas.filter((celda) => {
-    return celda.colapsada == false
+    return celda.colapsada == false;
   });
 
   if (celdasDisponibles.length > 0) {
@@ -130,13 +132,13 @@ function draw() {
     });
 
     const celdasPorColapsar = celdasDisponibles.filter((celda) => {
-      return (
-        celda.opciones.length == celdasDisponibles[0].opciones.length
-      )
+      return celda.opciones.length == celdasDisponibles[0].opciones.length
+
     });
 
 
     const celdaSeleccionada = random(celdasPorColapsar);
+    celdaSeleccionada.colapsada = true
 
 
     const opcionSelec = random(celdaSeleccionada.opciones);
@@ -146,9 +148,16 @@ function draw() {
 
 
     for (let x = 0; x < RETICULA; x++) {
-      for (let y = 0; x < RETICULA; y++) { }
+      for (let y = 0; y < RETICULA; y++) {
+        const celdaIndex = x + y * RETICULA;
+        const celdaActual = celdas[celdaIndex];
+        if (celdaActual.colapsada) {
+          image(azulejos[celdaActual.opciones[0]], 0, 0);
+
+        }
+      }
     }
 
+    noLoop();
   }
-  noLoop();
 }
