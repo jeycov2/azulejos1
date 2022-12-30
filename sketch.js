@@ -86,6 +86,8 @@ const reglas = [
 
 ]
 
+let ancho //ancho de celda
+let alto //alto de celda
 function preload() {
   for (let i = 0; i < NA; i++) {
     azulejos[i] = loadImage(`tiles/tile${i}.png`);
@@ -95,6 +97,10 @@ function preload() {
 
 function setup() {
   createCanvas(1080, 1080);
+
+  ancho = width / RETICULA;
+  alto = height / RETICULA;
+
   let opcionesI = []
   for (let i = 0; i < azulejos.length; i++) {
     opcionesI.push(i);
@@ -103,12 +109,46 @@ function setup() {
   for (let i = 0; i < RETICULA * RETICULA; i++) {
     celdas[i] = {
       colapsada: false,
-      opciones: opcionesI
+      opciones: opcionesI,
     }
   }
-  print(celdas);
+  // celdas[8].colapsada = true;
+  // celdas[3].colapsada = true;
+  // celdas[12].opciones = [2]
+
 }
 
 function draw() {
 
+  const celdasDisponibles = celdas.filter((celda) => {
+    return celda.colapsada == false
+  });
+
+  if (celdasDisponibles.length > 0) {
+    celdasDisponibles.sort((a, b) => {
+      return a.opciones.length - b.opciones.length;
+    });
+
+    const celdasPorColapsar = celdasDisponibles.filter((celda) => {
+      return (
+        celda.opciones.length == celdasDisponibles[0].opciones.length
+      )
+    });
+
+
+    const celdaSeleccionada = random(celdasPorColapsar);
+
+
+    const opcionSelec = random(celdaSeleccionada.opciones);
+    celdaSeleccionada.opciones = [opcionSelec]
+
+    print(celdaSeleccionada);
+
+
+    for (let x = 0; x < RETICULA; x++) {
+      for (let y = 0; x < RETICULA; y++) { }
+    }
+
+  }
+  noLoop();
 }
