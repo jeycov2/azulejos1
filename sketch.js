@@ -121,7 +121,7 @@ function setup() {
 }
 
 function draw() {
-  background(111);
+  // background(111);
   const celdasDisponibles = celdas.filter((celda) => {
     return celda.colapsada == false;
   });
@@ -152,12 +152,12 @@ function draw() {
         const celdaIndex = x + y * RETICULA;
         const celdaActual = celdas[celdaIndex];
         if (celdaActual.colapsada) {
-          image(azulejos[celdaActual.opciones[0]], 0, 0);
+          image(azulejos[celdaActual.opciones[0]], x * ancho, y * alto, ancho, alto);
 
         }
       }
     }
 
-    noLoop();
+
   }
 }
