@@ -1,5 +1,5 @@
 const celdas = []; // 4x4
-const RETICULA = 4
+const RETICULA = 8
 
 const azulejos = [];
 const NA = 11; //numero de azulejos
@@ -153,31 +153,83 @@ function draw() {
           const indiceDeAzulejo = celdaActual.opciones[0];
           const reglasActuales = reglas[indiceDeAzulejo];
           print(reglasActuales);
-          image(azulejos[indiceDeAzulejo], x * ancho, y * alto, ancho, alto);
+          image(
+            azulejos[indiceDeAzulejo], x * ancho, y * alto, ancho, alto);
+
           //monitorear UP
           if (y > 0) {
+            const indiceUp = x + (y - 1) * RETICULA;
+            const celdaUp = celdas[indiceUp];
+            if (!celdaUp.colapsada) {
 
+              controlentropia(celdaUp, reglasActuales['UP'], 'DOWN')
+            }
           }
 
           //monitorear right
-          if (x > RETICULA - 1) {
-
+          if (x < RETICULA - 1) {
+            const indiceRight = x + 1 + y * RETICULA;
+            const celdaRight = celdas[indiceRight];
+            if (!celdaRight.colapsada) {
+              controlentropia(celdaRight, reglasActuales['RIGHT'], 'LEFT')
+            }
           }
 
           //monitorear down
           if (y < RETICULA - 1) {
-
+            const indiceDown = x + (y + 1) * RETICULA;
+            const celdaDown = celdas[indiceDown];
+            if (!celdaDown.colapsada) {
+              controlentropia(celdaDown, reglasActuales['DOWN'], 'UP');
+            }
           }
 
           //monitorear left
           if (x > 0) {
-
+            const indiceLeft = x - 1 + y * RETICULA;
+            const celdaLeft = celdas[indiceLeft];
+            if (!celdaLeft.colapsada) {
+              controlentropia(celdaLeft, reglasActuales['LEFT'], 'RIGHT');
+            }
           }
-
+        }
+        else {
+          strokeWeight(1);
+          rect(x * ancho, y * alto, ancho, alto);
         }
       }
     }
-    noLoop();
+    // noLoop();
 
+
+    // activa esto para hacer el loop
   }
+  // else {
+  //   let opcionesI = []
+  //   for (let i = 0; i < azulejos.length; i++) {
+  //     opcionesI.push(i);
+  //   }
+
+  //   for (let i = 0; i < RETICULA * RETICULA; i++) {
+  //     celdas[i] = {
+  //       colapsada: false,
+  //       opciones: opcionesI,
+  //     };
+  //   }
+  // }
+}
+
+function controlentropia(_celda, _regla, _opuesto) {
+  const nuevasOpciones = []
+  for (let i = 0; i < _celda.opciones.length; i++) {
+    if (
+      _regla ==
+      reglas[_celda.opciones[i]][_opuesto]
+    ) {
+      const celdaCompatible = _celda.opciones[i];
+      nuevasOpciones.push(celdaCompatible);
+    }
+  }
+  _celda.opciones = nuevasOpciones;
+  print(nuevasOpciones);
 }
