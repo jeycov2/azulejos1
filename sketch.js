@@ -114,9 +114,7 @@ function setup() {
       opciones: opcionesI,
     };
   }
-  // celdas[8].colapsada = true;
-  // celdas[3].colapsada = true;
-  // celdas[12].opciones = [2]
+
 
 }
 
@@ -144,7 +142,7 @@ function draw() {
     const opcionSelec = random(celdaSeleccionada.opciones);
     celdaSeleccionada.opciones = [opcionSelec]
 
-    print(celdaSeleccionada);
+    // print(celdaSeleccionada);
 
 
     for (let x = 0; x < RETICULA; x++) {
@@ -152,12 +150,34 @@ function draw() {
         const celdaIndex = x + y * RETICULA;
         const celdaActual = celdas[celdaIndex];
         if (celdaActual.colapsada) {
-          image(azulejos[celdaActual.opciones[0]], x * ancho, y * alto, ancho, alto);
+          const indiceDeAzulejo = celdaActual.opciones[0];
+          const reglasActuales = reglas[indiceDeAzulejo];
+          print(reglasActuales);
+          image(azulejos[indiceDeAzulejo], x * ancho, y * alto, ancho, alto);
+          //monitorear UP
+          if (y > 0) {
+
+          }
+
+          //monitorear right
+          if (x > RETICULA - 1) {
+
+          }
+
+          //monitorear down
+          if (y < RETICULA - 1) {
+
+          }
+
+          //monitorear left
+          if (x > 0) {
+
+          }
 
         }
       }
     }
-
+    noLoop();
 
   }
 }
