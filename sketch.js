@@ -98,6 +98,7 @@ function preload() {
 }
 
 function setup() {
+
   createCanvas(1080, 1080);
 
   ancho = width / RETICULA;
@@ -120,6 +121,9 @@ function setup() {
 
 function draw() {
   // background(111);
+
+
+
   const celdasDisponibles = celdas.filter((celda) => {
     return celda.colapsada == false;
   });
@@ -136,7 +140,7 @@ function draw() {
 
 
     const celdaSeleccionada = random(celdasPorColapsar);
-    celdaSeleccionada.colapsada = true
+    celdaSeleccionada.colapsada = true;
 
 
     const opcionSelec = random(celdaSeleccionada.opciones);
