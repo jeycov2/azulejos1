@@ -198,7 +198,7 @@ function draw() {
           }
         }
         else {
-          strokeWeight(1);
+          noStroke();
           rect(x * ancho, y * alto, ancho, alto);
         }
       }
@@ -208,19 +208,19 @@ function draw() {
 
     // activa esto para hacer el loop
   }
-  // else {
-  //   let opcionesI = []
-  //   for (let i = 0; i < azulejos.length; i++) {
-  //     opcionesI.push(i);
-  //   }
+  else {
+    let opcionesI = []
+    for (let i = 0; i < azulejos.length; i++) {
+      opcionesI.push(i);
+    }
 
-  //   for (let i = 0; i < RETICULA * RETICULA; i++) {
-  //     celdas[i] = {
-  //       colapsada: false,
-  //       opciones: opcionesI,
-  //     };
-  //   }
-  // }
+    for (let i = 0; i < RETICULA * RETICULA; i++) {
+      celdas[i] = {
+        colapsada: false,
+        opciones: opcionesI,
+      };
+    }
+  }
 }
 
 function controlentropia(_celda, _regla, _opuesto) {
